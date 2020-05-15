@@ -1,22 +1,15 @@
-cmake_minimum_required(VERSION 3.5)
-project(MinimalExample CXX)
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+project(MinimalExample VERSION 0.1.0 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 11) 
+file(GLOB_RECURSE sources src/*.[hc]pp)
+add_executable(MinimalExample ${sources} src/main.manifest)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_11)
 
-set(SOURCE_FILES src/main.cpp)
+find_package(SDL2 CONFIG REQUIRED)
+target_link_libraries(MinimalExample PRIVATE SDL2::SDL2 SDL2::SDL2main)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
+find_package(sdl2-image CONFIG REQUIRED)
+target_link_libraries(MinimalExample PRIVATE SDL2::SDL2_image)
 
-find_package(SDL2 REQUIRED)
-find_package(SDL2_image REQUIRED)
-
-include_directories(${SDL2_INCLUDE_DIR})
-include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
-
-add_executable(MinimalExample ${SOURCE_FILES})
-target_link_libraries(MinimalExample ${SDL2_LIBRARY}  ${SDL2_IMAGE_LIBRARIES})
-
-
-add_custom_command( TARGET MinimalExample POST_BUILD
-					COMMAND ${CMAKE_COMMAND} -E copy_directory
-				${CMAKE_SOURCE_DIR}/data/ $<TARGET_FILE_DIR:MinimalExample>/data/)
+add_custom_command(TARGET MinimalExample POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
+  ${CMAKE_SOURCE_DIR}/data/ $<TARGET_FILE_DIR:MinimalExample>/data/)
