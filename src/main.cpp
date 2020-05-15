@@ -1,6 +1,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
+#include <stdio.h>
+
 int main(int argc, char* args[])
 {
 	if (SDL_Init(SDL_INIT_VIDEO) > 0) {
