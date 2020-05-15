@@ -11,5 +11,8 @@ target_link_libraries(MinimalExample PRIVATE SDL2::SDL2 SDL2::SDL2main)
 find_package(sdl2-image CONFIG REQUIRED)
 target_link_libraries(MinimalExample PRIVATE SDL2::SDL2_image)
 
+find_package(PNG REQUIRED)
+target_link_libraries(MinimalExample PRIVATE PNG::PNG)
+
 add_custom_command(TARGET MinimalExample POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
   ${CMAKE_SOURCE_DIR}/data/ $<TARGET_FILE_DIR:MinimalExample>/data/)

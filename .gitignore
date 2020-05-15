@@ -2,6 +2,7 @@
 .*
 *.aps
 !/data/
+!/res/
 !/src/
 !/.clang-format
 !/.clang-tidy
@@ -10,3 +11,4 @@
 !/.gitignore
 !/CMakeLists.txt
 !/CMakeSettings.json
+!/makefile
